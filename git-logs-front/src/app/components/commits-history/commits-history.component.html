@@ -12,21 +12,26 @@
 <h3 class="font-medium leading-tight text-2xl mb-2">Console view</h3>
 
 <div class="bg-gray-800 mx-auto p-4 rounded min-h-content">
-    <div class="grid grid-cols-2 gap-2 mb-2">
+    <div class="grid  grid-cols-1 sm:grid-cols-2 gap-6 mb-2">
         <div>
             <code class="text-gray-500">
       <i>/* My commits */ </i>
   </code></div>
         <div>
-            <span class="float-right text-gray-500">
+            <span class="float-none md:float-right text-gray-500">
       Repo: <i class="text-green-500">{{repository}}</i>
     </span>
         </div>
     </div>
 
     <hr class="my-2">
-    <div *ngFor="let item of history; let i = index">
-        <code> <span class="text-gray-500">{{i+1}}- </span> <span class=" text-pink-600 ">{{item.name}} => "{{item.message}}"</span> <i class="text-gray-500 float-right">{{item.date | date}} </i> </code>
+    <div *ngFor="let item of history; let i = index" class="grid  grid-cols-1 sm:grid-cols-4 gap-2 mb-2">
+        <div class="col-span-3">
+            <code> <span class="text-gray-500">{{i+1}}- </span> <span class=" text-pink-600 ">{{item.name}} => "{{item.message}}"</span>  </code>
+        </div>
+        <div>
+            <code> <i class="text-gray-500 float-right">{{item.date | date}} </i> </code>
+        </div>
     </div>
 </div>
 <hr class="my-2">

@@ -29,12 +29,13 @@ export class MyApiComponent implements OnInit {
     this.getProducts();
   }
 
-  toggleModal() {
+  toggleModal() {// toggle modal to create or update product
     this.submitted = false;
     this.productForm.reset();
     this.showModal = !this.showModal;
   }
-  saveProduct() {
+
+  saveProduct() {// save product
     this.submitted = true;
     if (!this.productForm.valid) return;
     if (this.productForm.controls._id.value) {
@@ -48,7 +49,7 @@ export class MyApiComponent implements OnInit {
     this.createProduct();
   }
 
-  createProduct() {
+  createProduct() {// create new product
     this.spinner.show();
     this._myApiService.createProduct(this.productForm.value).subscribe((data: any) => {
       this.getProducts();
@@ -62,7 +63,7 @@ export class MyApiComponent implements OnInit {
     });
   }
 
-  getProducts(search = '') {
+  getProducts(search = '') { // get products from api, if search is empty, get all products
     if (search.trim().length === 0) this.search = '';
     this.spinner.show();
     this._myApiService.getProducts(search).subscribe((data: any) => {
@@ -75,18 +76,18 @@ export class MyApiComponent implements OnInit {
     });
   }
 
-  searchProducts() {
+  searchProducts() { // search products, search must be at least 3 characters
     if (this.search.length >= 3 || this.search == '') {
       this.getProducts(this.search);
     }
   }
 
-  fillForm(product: Product) {
+  fillForm(product: Product) { // fill form to update product
     this.productForm.patchValue(product);
     this.showModal = true;
   }
 
-  updateProduct() {
+  updateProduct() { // update product in api
     this.spinner.show();
     this._myApiService.updateProduct(this.productForm.value).subscribe((data: any) => {
       this.getProducts();
@@ -100,8 +101,7 @@ export class MyApiComponent implements OnInit {
     });
   }
 
-
-  deleteProduct(id: string) {
+  deleteProduct(id: string) { // delete product from api
     Swal.fire(this._utilitiesService.swalDelete).then(result => {
       if (result.value) {
         this.spinner.show();

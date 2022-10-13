@@ -12,11 +12,12 @@ export class GithubService {
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders().set("Authorization", environment.githubToken);
   }
-  getCommitsHistory<Observable>() {
+
+  getCommitsHistory<Observable>() { // get commits history from github api
     return this.http.get(`https://api.github.com/repos/${environment.githubUser}/${environment.githubRepo}/commits`, { headers: this.headers }).pipe(first());
   }
 
-  getUser<Observable>() {
+  getUser<Observable>() { // get user from github api
     // this.headers = new HttpHeaders().set("auth", "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");
     return this.http.get(`https://api.github.com/users/${environment.githubUser}`, { headers: this.headers }).pipe(first());
   }

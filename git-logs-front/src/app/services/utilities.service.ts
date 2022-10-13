@@ -4,22 +4,28 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class UtilitiesService {
-  swalDelete: any = {
+  /*
+  * Helper service to share util functions between components
+  */
+
+  swalDelete: any = {// sweet alert delete
     title: '¿Are you sure?',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Yes, delete!',
     cancelButtonText: 'Cancel'
   };
-  swalDeleted: any = {
+  swalDeleted: any = { // sweet alert deleted
     icon: 'success',
     title: 'Deleted!',
     text: 'Successfully deleted!',
     showConfirmButton: false,
     timer: 1500
   };
-  optToast = {
+  optToast = { // options for toast
     positionClass: 'toast-top-full-width',
     progressBar: true
   }

@@ -12,16 +12,17 @@ export class NavbarComponent implements OnInit {
   user = new User();
   mobile_menu = false;
   constructor(private _githubService: GithubService, private spinner: NgxSpinnerService) { }
-  getGithubUser() {
+
+  ngOnInit(): void {
+    this.getGithubUser();
+  }
+
+  getGithubUser() { // get github user from github api
     this.spinner.show();
     this._githubService.getUser().subscribe((data: any) => {
       this.user = data;
       this.spinner.hide();
     });
-  }
-
-  ngOnInit(): void {
-    this.getGithubUser();
   }
 
 }

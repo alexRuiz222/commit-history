@@ -14,9 +14,11 @@ export class CommitsHistoryComponent implements OnInit {
   repository = environment.githubRepo;
   constructor(private _githunbService: GithubService, private spinner: NgxSpinnerService) { }
 
+  ngOnInit() {
+    this.getCommitsHistory();
+  }
 
-
-  getCommitsHistory() {
+  getCommitsHistory() {// get commits history
     this.spinner.show();
     this._githunbService.getCommitsHistory().subscribe((data: any) => {
       this.history = data;
@@ -24,7 +26,4 @@ export class CommitsHistoryComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.getCommitsHistory();
-  }
 }

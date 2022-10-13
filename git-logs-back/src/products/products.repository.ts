@@ -5,7 +5,7 @@ import { Model, FilterQuery } from 'mongoose';
 
 @Injectable()
 export class ProductsRepository {
-    constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) { }
+    constructor(@InjectModel(Product.name) public productModel: Model<ProductDocument>) { }
 
     async findOne(productFilterQuery: FilterQuery<Product>): Promise<Product> {
         return this.productModel.findOne(productFilterQuery);

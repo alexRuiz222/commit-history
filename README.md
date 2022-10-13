@@ -2,7 +2,8 @@
 
 ## Description
 
-Application to view the commits history of my repository.
+Application to see the commits history of my repository.
+And also interact with my Api made with NestJs
 
 ## **Dependencies**
 
@@ -22,8 +23,8 @@ Application to view the commits history of my repository.
 ### **1.1 navigate to `frontend/` directory.**
 
 ```
-#  navigate to frontend
-$ cd frontend
+#  navigate to git-logs-front
+$ cd git-logs-front
 ```
 
 ### **2. then install dependencies & run angular serve**
@@ -41,10 +42,20 @@ $ npm install
 
 ## **Backend (Part)**
 
-### **1.1 navigate to `backend/` directory.**
+### **1.1 navigate to `git-logs-back/` directory.**
 
 ```
-cd backend/
+cd git-logs-back/
+```
+
+#### **1.2 change environment variables.**
+
+- Go to src/common/environments folder and edit environment variables en each file
+
+```
+DATABASE_HOST=your_database_host
+DATABASE_PORT=your_database_port
+DATABASE_NAME=your_database_name
 ```
 
 ### **2. then install dependencies & run dev**
@@ -52,10 +63,14 @@ cd backend/
 In terminal - command
 
 ```
-#  navigate to backend
-$ cd backend
+#  navigate to git-logs-back
+$ cd git-logs-back
 # install dependencies
 $ npm install
 # start server
-$ npm start `or` $ npm runstart: dev
+$ npm start `or` $ npm run start:dev
 ```
+
+# **VIEW IN BROWSER**
+
+Just go to http://localhost:4200

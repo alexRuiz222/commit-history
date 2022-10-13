@@ -1,12 +1,13 @@
-<div class="px-4">
+<app-navbar class="sticky top-0 z-50"></app-navbar>
+<div class="p-4 ">
     <!-- <h3 class="text-center uppercase italics"> <strong>git - logs</strong></h3> -->
-    <div class="bg-gray-800 mx-auto p-4 rounded hover:rounded-lg  scroll-auto">
-        <code class="text-gray-500 text-center">
-            /* These are my commits */
-        </code>
-        <hr class="my-2">
-        <div *ngFor="let log of logs">
-            <code class=" text-pink-600 "> - {{log}}</code>
-        </div>
-    </div>
+    <!-- <div class="flex mb-2">
+        <div class="flex-auto w-64"><img class="inline-block h-6 w-6 rounded-full ring-2 ring-white" *ngIf="user.avatar_url" [src]="user.avatar_url" alt=""> <span class="mx-2">{{user.name}} | <i>{{user.bio}}</i></span></div>
+        <div class="flex-none w-32"><button class="rounded p-1 px-2 text-white bg-gray-500 cursor-pointer float-right" (click)="getCommitsHistory();">refresh <i class="ft-refresh-cw"></i></button></div>
+    </div> -->
+
+    <router-outlet></router-outlet>
 </div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="pacman" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

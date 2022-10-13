@@ -5,10 +5,7 @@ module.exports = {
         "./src/**/*.{html,ts}",
     ],
     theme: {
-        extend: {},
-        minHeight: {
-            '1/2': '50%',
-        }
+        extend: {}
     },
     variants: {
         extend: {},

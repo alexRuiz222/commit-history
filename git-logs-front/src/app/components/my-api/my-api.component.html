@@ -1,0 +1,161 @@
+<label class="relative block">
+  <span class="sr-only">Search</span>
+  <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+    <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20"><!-- ... --></svg>
+  </span>
+    <div class="flex">
+      <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border-t border-b border-slate-300 rounded-none rounded-l-lg  py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search by name..." type="text" name="search" [(ngModel)]="search" (ngModelChange)="searchProducts()"/>
+      <!-- <button type="button" class=" px-6 py-2.5  text-gray-500 font-medium text-xs leading-tight uppercase border-t border-b border-slate-300 " title="Refresh" (click)="getProducts()"
+      ><i class="ft-x" ></i></button> -->
+      <button type="button" class=" px-6 py-2.5 bg-gray-600 text-white font-medium text-xs leading-tight uppercase   shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out" title="Refresh" (click)="getProducts()"
+      ><i class="ft-refresh-cw" ></i></button>
+      <button type="button" class=" px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-r-md  shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" title="Add new product" (click)="toggleModal()"
+      ><i class="ft-plus" ></i></button>
+    </div>
+    <hr class="my-2">
+
+
+
+</label>
+
+<div class="overflow-x-auto relative">
+    <h3 class="text-center" *ngIf="products.length == 0"><i>Products not found...</i></h3>
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" *ngIf="products.length > 0">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="py-3 px-6">
+                    Product name
+                </th>
+                <th scope="col" class="py-3 px-6">
+                    Color
+                </th>
+                <!-- <th scope="col" class="py-3 px-6">
+                  Category
+              </th> -->
+                <th scope="col" class="py-3 px-6">
+                    Price
+                </th>
+                <th scope="col" class="py-3 px-2"></th>
+                <th scope="col" class="py-3 px-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let product of products">
+                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{product.name}}
+                </th>
+                <td class="py-4 px-6">
+                    {{product.color ? product.color : '-'}}
+                </td>
+                <!-- <td class="py-4 px-6">
+                  Laptop
+              </td> -->
+                <td class="py-4 px-6">
+                    {{product.price|currency}}
+                </td>
+                <td class="py-4 px-1">
+                    <i class="ft-edit text-green-500 cursor-pointer" title="edit" (click)="fillForm(product)"></i>
+                </td>
+                <td class="py-4 px-1">
+                    <i class="ft-trash text-red-500 cursor-pointer" title="delete" (click)="deleteProduct(product._id)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div *ngIf="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+
+    <div class="relative w-auto my-6 mx-auto max-w-3xl">
+        <!--content-->
+        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+            <!--header-->
+            <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                <h3 class="text-2xl font-medium">
+                    Product
+                </h3>
+                <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" (click)="toggleModal()">
+          <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+            <i class="ft-x"></i>
+          </span>
+        </button>
+            </div>
+            <!--body-->
+            <div class="relative p-6 flex-auto">
+                <form [formGroup]="productForm">
+                    <div class="grid mb-6">
+                        <div class="form-group px-2">
+                            <label for="productNameInput" class="form-label inline-block mb-2 text-gray-700">Product name <span class="text-red-500" *ngIf="productForm.controls.name.validator">*</span> </label>
+                            <input type="text" class="form-control
+                block
+                w-full
+                px-3
+                py-1.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" [ngClass]="{'border-red-500' : (productForm.controls.name.touched || submitted) && productForm.controls.name.invalid}" id="productNameInput" placeholder="Enter product name"
+                                formControlName="name">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 mb-6">
+                        <div class="form-group px-2 ">
+                            <label for="colorInput" class="form-label inline-block mb-2 text-gray-700">Color</label>
+                            <input type="text" class="form-control
+                              block
+                              w-full
+                              px-3
+                              py-1.5
+                              text-base
+                              font-normal
+                              text-gray-700
+                              bg-white bg-clip-padding
+                              border border-solid border-gray-300
+                              rounded
+                              transition
+                              ease-in-out
+                              m-0
+                              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" [ngClass]="{'border-red-500' : (productForm.controls.color.touched || submitted) && productForm.controls.color.invalid}" id="colorInput" placeholder="Enter color"
+                                formControlName="color">
+                        </div>
+                        <div class="form-group px-2 ">
+                            <label for="priceInput" class="form-label inline-block mb-2 text-gray-700">Price <span class="text-red-500" *ngIf="productForm.controls.price.validator">*</span></label>
+                            <input type="text" class="form-control block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="priceInput" placeholder="Price" prefix="$" [allowNegativeNumbers]="false" mask="separator.0" thousandSeparator="," formControlName="price" [ngClass]="{'border-red-500' : (productForm.controls.price.touched || submitted) && productForm.controls.price.invalid}">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <!--footer-->
+            <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                <button class="text-gray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+          Close
+        </button>
+                <button class="bg-blue-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="saveProduct()">
+          Save Changes
+        </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>

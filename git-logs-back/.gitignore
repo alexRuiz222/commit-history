@@ -2,6 +2,10 @@
 /dist
 /node_modules
 
+# environment variables
+common/environments/environment.env
+common/environments/environment.prod.env
+
 # Logs
 logs
 *.log

@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  githubUser: 'alexRuiz222',
+  githubRepo: 'commit-history'
 };
